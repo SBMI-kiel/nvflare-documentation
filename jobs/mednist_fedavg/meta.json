@@ -1,0 +1,9 @@
+{
+    "name": "mednist_avg",
+    "deploy_map": {
+        "mednist_avg": [
+            "@ALL"
+        ]
+    },
+    "min_clients": 2
+}
