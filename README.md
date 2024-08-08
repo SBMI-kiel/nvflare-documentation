@@ -3,25 +3,37 @@
 ## Important notices
 This documentation uses nvflare version 2.4.1.
 
+Please read this document to get a feel for NVflare, not necessarily to quickstart a connection to an existing nvflare architecture.
 
 ## New nvflare setup
 This section details how to setup a new nvflare environment. The result is a working local environment with multiple clients, users and possibly servers.
+
+The steps are detailed in the following order:
+1. Defining/provisioning a new architecture
+2. Running the new architecture locally
+3. Accessing the admin console to interact with the architecture
+4. Launching an example project
 
 ### Preliminaries
 You will need a python environment with NVflare installed.
 You may use venv, conda (or even docker) to get a working nvflare environment.
 
+Using venv, you may use 
+```bash
+python -m venv /path/to/new/virtual/environment
+```
+
 Also, docker and docker compose should be installed on the host machine you are working on.
 
 ### Provisioning
 Provisioning is the stage in which the certificates are generated. 
-The following command creates a yaml file used to configure the participants under provision.yml. One can choose between HA and non-HA mode. If using HA, an overseer is created and multiple servers may be used as fallback. This is not strictly necessary if few participants and users are needed.
+The following command creates a yaml file used to configure the participants under project.yml. One can choose between HA and non-HA mode. If using HA, an overseer is created and multiple servers may be used as fallback. This is not strictly necessary if few participants and users are needed.
 ```shell
 nvflare provision
 ```
 
-Now, one may update the provision.yml file created.
-This documentation assumes that the docker compose builder is used. The usage can be seen in the included example provision.yml file.
+Now, one may update the project.yml file created.
+This documentation assumes that the docker builder is used. The usage can be seen in the included example [project.yml](project.yml) file.
 
 This provision file does not use an overseer and uses two clients. The base image in this case for the clients and servers is `projectmonai/monai` and a requirements file is provided.
 
@@ -92,3 +104,19 @@ The docker compose volume specified in compose.yaml for the server does not work
 ## Running an example project
 This repository ships with an example project that trains a DenseNet121 model on the MedNIST dataset. 
 The example project can be used for both local training and federated learning.
+
+By default, the data is saved to the directory `pt/dataset`. It is benefitial to run the dataset creation by executing `pt/mnist_model_learner.py` in a respective docker container before trying the code in NVflare.
+
+To do so, one may start the NVflare architecture as shown above and attach to one of the sites using
+```bash
+docker exec -it site-1 /bin/bash
+```
+
+and executing the code in `/code`.
+
+Once this has been done, i.e. the dataset has been downloaded and perhaps been tested once, one may run the project in the NVflare environment. 
+
+To do so, copy the job to your admin console's transfer folder. In the mednist_fedavg folder, the job is configured. Notice that no code is transferred to the clients as they already have access locally.
+
+Once inside the admin console, enter `submit_job mednist_fedavg`. The server will automatically start training. 
+You may find all available commands using `?`.
