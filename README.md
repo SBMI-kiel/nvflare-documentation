@@ -44,6 +44,7 @@ nvflare provision
 a workspace is created in `workspace/<NAME>/prod_XX/`
 
 The docker image to use is called `nvflare-service` by default. It is possible, however, to rename it in `.env` or to build the image every startup by changing the tag from `image` to `build`.
+Otherwise, you will need to build the docker image separately.
 It is possible to start the processes in the created folder using `docker compose up`.
 You may need to update the `.env` file if e.g. the python executable is not found in the given image.
 
