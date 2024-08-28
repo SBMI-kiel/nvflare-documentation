@@ -3,7 +3,7 @@
 ## Important notices
 This documentation uses nvflare version 2.4.1.
 
-Please read this document to get a feel for NVflare, not necessarily to quickstart a connection to an existing nvflare architecture.
+Please read this document to get a feel for NVflare, not necessarily to quickstart a connection to an existing nvflare architecture .
 
 ## New nvflare setup
 This section details how to setup a new nvflare environment. The result is a working local environment with multiple clients, users and possibly servers.
