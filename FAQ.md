@@ -11,7 +11,7 @@
 All clients must have outgoing access to servers and overseers, servers and overseers must be able to accept all incoming connections from the clients.
 
 ## Is it possible to add participants dynamically?
-Once an nvflare setup is complete, it is possible to add new clients and admin consoles dynamically. It is not, however, possible to add new servrs and overseers.
+Once an nvflare setup is complete, it is possible to add new clients and admin consoles dynamically. It is not, however, possible to add new servers and overseers.
 
 See https://nvflare.readthedocs.io/en/main/user_guide/nvflare_cli/provision_command.html#dynamic-provisioning for more.
 
@@ -19,3 +19,10 @@ See https://nvflare.readthedocs.io/en/main/user_guide/nvflare_cli/provision_comm
 Apart from networking settings described above, typical deep-learning hardware may be employed for usage in NVflare.
 You will need: one or multiple graphics cards best if somewhat up to date. On of the best options around at this time is the NVIDIA H100/H200. Consumer grade cards may also work, however and are significantly cheaper.
 In addition, a somewhat new CPU and RAM needed to train a deep learning network traditionally will suffice.
+
+## Is there a UI interface for NVflare?
+Not for running and managing experiments. You may use TensorBoard, WandB etc., however.
+
+The NVflare dashboard, however, exists for managing the creation of certificates and the structure of the architecture itself. 
+You may find more information in the official NVflare documentation:
+https://nvflare.readthedocs.io/en/main/user_guide/nvflare_cli/dashboard_command.html, https://nvflare.readthedocs.io/en/main/user_guide/dashboard_api.html
