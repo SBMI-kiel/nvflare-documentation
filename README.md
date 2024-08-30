@@ -3,7 +3,7 @@
 ## Important notices
 This documentation uses nvflare version 2.4.1.
 
-Please read this document to get a feel for NVflare, not necessarily to quickstart a connection to an existing nvflare architecture .
+Please read this document to get a feel for NVflare, not necessarily to quickstart a connection to an existing nvflare architecture.
 
 ## New nvflare setup
 This section details how to setup a new nvflare environment. The result is a working local environment with multiple clients, users and possibly servers.
@@ -44,7 +44,12 @@ nvflare provision
 a workspace is created in `workspace/<NAME>/prod_XX/`
 
 The docker image to use is called `nvflare-service` by default. It is possible, however, to rename it in `.env` or to build the image every startup by changing the tag from `image` to `build`.
-Otherwise, you will need to build the docker image separately.
+Otherwise, you will need to build the docker image separately. To build, head to `nvflare_compose` and run 
+```bash
+docker build -t nvflare-service .
+```
+you may need to add additional args to this command.
+
 It is possible to start the processes in the created folder using `docker compose up`.
 You may need to update the `.env` file if e.g. the python executable is not found in the given image.
 
@@ -69,12 +74,12 @@ docker run -it --rm --net=${COMPOSE_PROJECT_NAME}_default --volume ./admin@uksh.
 
 Enable the execution of `admin.sh` by using 
 ```bash
-chmod +x ./bash.sh
+chmod +x ./admin.sh
 ```
 
 Then, start the console by using 
 ```bash
-./bash.sh
+./admin.sh
 ```
 
 
@@ -88,7 +93,7 @@ docker run -it --rm --net host --volume ./admin@uksh.de:${WORKSPACE} --add-host 
 ```
 One would start this script using 
 ```bash
-./bash.sh 127.0.0.1
+./admin.sh 127.0.0.1
 ```
 
 Notice that `--net host` is only necessary for local testing of this script and not strictly needed for remote access. It is not included in the provided `admin-remote.sh` file. 
@@ -106,7 +111,7 @@ The docker compose volume specified in compose.yaml for the server does not work
 This repository ships with an example project that trains a DenseNet121 model on the MedNIST dataset. 
 The example project can be used for both local training and federated learning.
 
-By default, the data is saved to the directory `pt/dataset`. It is benefitial to run the dataset creation by executing `pt/mnist_model_learner.py` in a respective docker container before trying the code in NVflare.
+By default, the data is saved to the directory `pt/dataset`. It is benefitial to run the dataset creation by executing `pt/mnist_model_learner.py` in a respective docker container before trying the code in NVflare. The reason for this step is a race condition in downloading and extracting the data in two containers.
 
 To do so, one may start the NVflare architecture as shown above and attach to one of the sites using
 ```bash
@@ -117,7 +122,7 @@ and executing the code in `/code`.
 
 Once this has been done, i.e. the dataset has been downloaded and perhaps been tested once, one may run the project in the NVflare environment. 
 
-To do so, copy the job to your admin console's transfer folder. In the mednist_fedavg folder, the job is configured. Notice that no code is transferred to the clients as they already have access locally.
+To do so, copy the job in this repo to your admin console's transfer folder. In the mednist_fedavg folder, the job is configured. Notice that no code is transferred to the clients as they already have access locally.
 
 Once inside the admin console, enter `submit_job mednist_fedavg`. The server will automatically start training. 
 You may find all available commands using `?`.
